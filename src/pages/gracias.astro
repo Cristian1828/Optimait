@@ -1,0 +1,592 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const WA_NUMBER = '51914326729';
+const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi correo. Mi correo es: ';
+---
+
+<Layout
+  title="¡Compra Confirmada! — OptimaIT"
+  description="Tu compra fue procesada con éxito. En unos minutos recibirás la información de tu servicio."
+  noIndex={true}
+>
+  <main class="gracias-page">
+
+    <!-- Background decorativo -->
+    <div class="bg-orb bg-orb-top" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb-bottom" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <div class="gracias-wrapper">
+
+      <!-- Logo OptimaIT -->
+      <div class="gracias-logo-row">
+        <a href="/" class="gracias-logo-link">
+          <svg class="gracias-logo-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span class="gracias-logo-text">Optima<span class="gracias-logo-accent">IT</span></span>
+        </a>
+      </div>
+
+      <!-- Grid 2 columnas -->
+      <div class="gracias-grid">
+
+        <!-- COLUMNA IZQUIERDA — Confirmación -->
+        <div class="gracias-left">
+
+          <!-- Ícono de éxito animado -->
+          <div class="success-ring">
+            <div class="success-bg"></div>
+            <div class="success-ping"></div>
+            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+
+          <!-- Encabezado -->
+          <div class="gracias-heading">
+            <span class="gracias-badge">Pago confirmado ✓</span>
+            <h1>¡Muchas gracias<br/>por su compra!</h1>
+            <p>En un máximo de <strong>10 minutos</strong> recibirá la información de su servicio al correo electrónico registrado durante la compra.</p>
+          </div>
+
+          <!-- Pasos informativos -->
+          <div class="gracias-steps">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-text">
+                <strong>Revise su bandeja de entrada</strong>
+                <span>Incluyendo la carpeta de spam o no deseados.</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-text">
+                <strong>Espere hasta 10 minutos</strong>
+                <span>El envío puede demorar según su proveedor de correo.</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-text">
+                <strong>¿No recibió nada?</strong>
+                <span>Use el formulario de la derecha para contactarnos.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA — Tarjeta WhatsApp -->
+        <div class="gracias-right">
+          <div class="wa-card">
+
+            <div class="wa-card-header">
+              <div class="wa-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="wa-card-title">Solicite sus accesos por WhatsApp</p>
+                <p class="wa-card-subtitle">Ingrese el correo con el que realizó la compra y le enviaremos la información de inmediato.</p>
+              </div>
+            </div>
+
+            <!-- Input email -->
+            <div class="wa-form-group">
+              <label for="emailInput">Su correo electrónico</label>
+              <input
+                id="emailInput"
+                type="email"
+                placeholder="tucorreo@ejemplo.com"
+                autocomplete="email"
+              />
+            </div>
+
+            <!-- Botón WhatsApp -->
+            <a
+              id="waBtn"
+              href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(BASE_MSG)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="wa-btn"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              </svg>
+              Solicitar información por WhatsApp
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="margin-left:auto; opacity:0.7;">
+                <path fill-rule="evenodd" d="M5 10a.75.75 0 0 1 .75-.75h6.638L10.23 7.29a.75.75 0 1 1 1.04-1.08l3.5 3.25a.75.75 0 0 1 0 1.08l-3.5 3.25a.75.75 0 1 1-1.04-1.08l2.158-1.96H5.75A.75.75 0 0 1 5 10Z" clip-rule="evenodd" />
+              </svg>
+            </a>
+
+            <!-- Info adicional -->
+            <div class="wa-card-footer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              <p>Este canal es exclusivo para clientes que ya realizaron su compra.</p>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<script define:vars={{ WA_NUMBER, BASE_MSG }}>
+  const input = document.getElementById('emailInput');
+  const btn   = document.getElementById('waBtn');
+
+  function updateLink() {
+    const email = input.value.trim();
+    const msg = BASE_MSG + (email || '');
+    btn.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  input.addEventListener('input', updateLink);
+  updateLink();
+</script>
+
+<style>
+  /* ── Page Layout ─────────────────────────── */
+  .gracias-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    position: relative;
+    overflow: hidden;
+    background: var(--color-bg-deep);
+  }
+
+  /* ── Background Effects ──────────────────── */
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .bg-orb-top {
+    top: -200px;
+    left: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(74, 127, 167, 0.18) 0%, transparent 65%);
+    filter: blur(60px);
+  }
+
+  .bg-orb-bottom {
+    bottom: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(94, 159, 204, 0.14) 0%, transparent 65%);
+    filter: blur(60px);
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* ── Wrapper ──────────────────────────────── */
+  .gracias-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── Logo ──────────────────────────────────── */
+  .gracias-logo-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+
+  .gracias-logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .gracias-logo-link:hover {
+    opacity: 0.8;
+  }
+
+  .gracias-logo-svg {
+    color: var(--color-primary-light);
+  }
+
+  .gracias-logo-accent {
+    color: var(--color-primary-light);
+  }
+
+  /* ── Grid ──────────────────────────────────── */
+  .gracias-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* ── Left Column ───────────────────────────── */
+  .gracias-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
+  }
+
+  /* Success ring */
+  .success-ring {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: ring-pulse 2.5s ease-in-out infinite;
+  }
+
+  .success-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(74, 127, 167, 0.25), rgba(94, 159, 204, 0.1));
+    border: 1px solid rgba(74, 127, 167, 0.35);
+  }
+
+  .success-ping {
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74, 127, 167, 0.15), transparent);
+    animation: ping-slow 2s ease-in-out infinite;
+  }
+
+  .check-icon {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 10;
+    color: var(--color-primary-light);
+  }
+
+  .check-icon polyline {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: draw-check 0.5s ease-out 0.3s forwards;
+  }
+
+  /* Heading */
+  .gracias-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .gracias-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-primary-light);
+    font-family: var(--font-body);
+  }
+
+  .gracias-heading h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gracias-heading p {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  .gracias-heading p strong {
+    color: var(--color-text);
+  }
+
+  /* Steps */
+  .gracias-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    text-align: left;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(74, 127, 167, 0.15);
+    border: 1px solid rgba(74, 127, 167, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--color-primary-light);
+  }
+
+  .step-text strong {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 2px;
+  }
+
+  .step-text span {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── Right Column — WhatsApp Card ──────────── */
+  .gracias-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .wa-card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .wa-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .wa-icon-box {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 127, 167, 0.12);
+    border: 1px solid rgba(74, 127, 167, 0.25);
+    color: var(--color-primary-light);
+  }
+
+  .wa-card-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    margin-bottom: 4px;
+  }
+
+  .wa-card-subtitle {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  /* Form */
+  .wa-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .wa-form-group label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .wa-form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: var(--shadow-inset);
+    caret-color: var(--color-primary-light);
+  }
+
+  .wa-form-group input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+
+  .wa-form-group input:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-inset), 0 0 0 3px rgba(74, 127, 167, 0.15);
+  }
+
+  /* WhatsApp Button */
+  .wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-button);
+    text-decoration: none;
+  }
+
+  .wa-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover), var(--shadow-glow);
+  }
+
+  .wa-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Card footer */
+  .wa-card-footer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .wa-card-footer svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .wa-card-footer p {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+    align-self: center;
+  }
+
+  .back-link:hover {
+    color: var(--color-text);
+  }
+
+  /* ── Animations ────────────────────────────── */
+  @keyframes draw-check {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes ping-slow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0; transform: scale(1.4); }
+  }
+
+  @keyframes ring-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(74, 127, 167, 0.3); }
+    50% { box-shadow: 0 0 0 14px rgba(74, 127, 167, 0); }
+  }
+
+  /* ── Responsive ────────────────────────────── */
+  @media (max-width: 900px) {
+    .gracias-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .gracias-left {
+      order: 1;
+    }
+
+    .gracias-right {
+      order: 2;
+    }
+
+    .gracias-logo-row {
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .gracias-page {
+      padding: 24px 16px;
+    }
+
+    .wa-card {
+      padding: 24px;
+    }
+
+    .gracias-heading h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

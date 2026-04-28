@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Términos de Servicio — OptimaIT"
+  description="Términos y condiciones para los servicios de consultoría tecnológica, mantenimiento remoto y desarrollo de software de OptimaIT, respaldado por Dantro Tech Solutions."
+>
+  <Header />
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-header">
+        <a href="/" class="legal-back">&larr; Volver al Inicio</a>
+        <h1>Términos de Servicio</h1>
+        <p class="legal-updated">Última actualización: Abril 2026</p>
+      </div>
+
+      <div class="legal-content">
+        <section>
+          <h2>1. Naturaleza de los Servicios</h2>
+          <p>OptimaIT, respaldado por Dantro Tech Solutions (en adelante, "la Empresa"), ofrece servicios de <strong>consultoría tecnológica, desarrollo de software a medida, mantenimiento de sistemas y soporte técnico informático</strong>. Todos los servicios son de <strong>entrega digital y asistencia 100% remota</strong>. No se realizan desplazamientos ni instalaciones físicas.</p>
+          <p>Los servicios se prestan a través de:</p>
+          <ul>
+            <li>Sesiones de soporte remoto mediante software de acceso seguro</li>
+            <li>Diagnósticos automatizados y herramientas de monitoreo en la nube</li>
+            <li>Comunicación por correo electrónico, chat y videollamada</li>
+            <li>Entrega de informes, documentación y archivos digitales</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>2. Planes y Facturación</h2>
+          <p>Los planes de mantenimiento TI son servicios de <strong>suscripción recurrente</strong> con los siguientes ciclos de facturación:</p>
+          <ul>
+            <li><strong>Optimización Estándar ($9.00 USD):</strong> Facturación mensual</li>
+            <li><strong>Mantenimiento Avanzado ($27.00 USD):</strong> Facturación trimestral</li>
+            <li><strong>Soporte Integral ($49.00 USD):</strong> Facturación semestral</li>
+            <li><strong>Gestión VIP Corporativa ($95.00 USD):</strong> Facturación anual</li>
+          </ul>
+          <p>Los cobros se realizan automáticamente al inicio de cada período. Los precios están expresados en Dólares Americanos (USD) e incluyen impuestos donde corresponda.</p>
+        </section>
+
+        <section>
+          <h2>3. Entrega del Servicio</h2>
+          <p>Una vez confirmado el pago, el cliente recibirá un correo de bienvenida con las instrucciones de acceso al servicio contratado. El tiempo de activación es de <strong>máximo 24 horas hábiles</strong>. El soporte se coordina a través de los canales oficiales de la Empresa.</p>
+        </section>
+
+        <section>
+          <h2>4. Política de Cancelación y Reembolso</h2>
+          <p>El cliente puede cancelar su suscripción en cualquier momento antes de la siguiente renovación. No se realizan reembolsos por períodos parciales ya consumidos. La cancelación será efectiva al final del período de facturación vigente.</p>
+          <p>En caso de disputas, la Empresa se compromete a revisar cada caso individualmente y buscar una solución justa dentro de los 15 días hábiles posteriores a la reclamación.</p>
+        </section>
+
+        <section>
+          <h2>5. Responsabilidades del Cliente</h2>
+          <p>El cliente es responsable de:</p>
+          <ul>
+            <li>Proveer acceso remoto seguro a los sistemas que requieran mantenimiento</li>
+            <li>Realizar copias de seguridad previas cuando se le indique</li>
+            <li>Comunicar de manera clara las incidencias o requerimientos</li>
+            <li>Mantener actualizada su información de contacto y pago</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>6. Limitación de Responsabilidad</h2>
+          <p>La Empresa no será responsable por pérdidas de datos, lucro cesante o daños indirectos derivados del uso de los servicios. La responsabilidad máxima estará limitada al monto pagado por el cliente en el último ciclo de facturación.</p>
+        </section>
+
+        <section>
+          <h2>7. Propiedad Intelectual</h2>
+          <p>Todo el software desarrollado a medida para el cliente será de su propiedad una vez completado el pago total. Las herramientas, frameworks y bibliotecas de uso interno de la Empresa permanecen bajo su propiedad.</p>
+        </section>
+
+        <section>
+          <h2>8. Contacto</h2>
+          <p>Para consultas sobre estos términos, contáctenos por <a href="https://wa.me/51921445800?text=Hola%2C%20tengo%20una%20consulta%20sobre%20los%20t%C3%A9rminos%20de%20servicio%20de%20OptimaIT." target="_blank" rel="noopener">WhatsApp</a>.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    min-height: 100vh;
+  }
+
+  .legal-header {
+    margin-bottom: 48px;
+  }
+
+  .legal-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--color-primary-light);
+    margin-bottom: 20px;
+    transition: color 0.2s ease;
+  }
+
+  .legal-back:hover {
+    color: var(--color-text);
+  }
+
+  .legal-header h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin-bottom: 8px;
+  }
+
+  .legal-updated {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .legal-content {
+    max-width: 800px;
+  }
+
+  .legal-content section {
+    margin-bottom: 36px;
+  }
+
+  .legal-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: var(--color-accent);
+  }
+
+  .legal-content p {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .legal-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 12px;
+  }
+
+  .legal-content ul li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+
+  .legal-content ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+  }
+
+  .legal-content strong {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .legal-content a {
+    color: var(--color-primary-light);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .legal-content a:hover {
+    color: var(--color-text);
+  }
+</style>

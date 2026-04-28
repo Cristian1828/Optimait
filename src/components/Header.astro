@@ -1,0 +1,192 @@
+---
+const waLink = 'https://wa.me/51921445800?text=Hola%2C%20necesito%20asesor%C3%ADa%20t%C3%A9cnica%20de%20OptimaIT.';
+const navLinks = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#portafolio', label: 'Portafolio' },
+  { href: '#testimonios', label: 'Testimonios' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <!-- Lucide: Shield Check -->
+      <svg class="logo-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      <span class="logo-text">Optima<span class="logo-accent">IT</span></span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Navegación principal">
+      {navLinks.map(link => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+    </nav>
+
+    <a href={waLink} target="_blank" rel="noopener" class="btn btn-primary header-cta">Solicitar Consulta</a>
+
+    <button class="mobile-toggle" aria-label="Menú" id="mobile-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Navegación móvil">
+    {navLinks.map(link => (
+      <a href={link.href} class="nav-mobile-link">{link.label}</a>
+    ))}
+    <a href={waLink} target="_blank" rel="noopener" class="btn btn-primary" style="margin-top: 16px; width: 100%;">Solicitar Consulta</a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(10, 25, 49, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(74, 127, 167, 0.12);
+    transition: background 0.3s ease;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: 32px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .logo-svg {
+    color: var(--color-primary-light);
+  }
+
+  .logo-accent {
+    color: var(--color-primary-light);
+  }
+
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.25s ease;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 1px;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--color-text);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .header-cta {
+    padding: 10px 24px;
+    font-size: 0.85rem;
+  }
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: var(--transition-base);
+  }
+
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    padding: 20px var(--container-px) 28px;
+    background: rgba(10, 25, 49, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-mobile.active {
+    display: flex;
+  }
+
+  .nav-mobile-link {
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid rgba(74, 127, 167, 0.08);
+  }
+
+  .nav-mobile-link:hover {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 768px) {
+    .nav-desktop, .header-cta {
+      display: none;
+    }
+
+    .mobile-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('mobile-toggle');
+  const mobileNav = document.getElementById('nav-mobile');
+
+  toggle?.addEventListener('click', () => {
+    mobileNav?.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.nav-mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav?.classList.remove('active');
+    });
+  });
+</script>

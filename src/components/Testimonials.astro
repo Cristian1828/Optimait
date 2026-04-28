@@ -1,0 +1,124 @@
+---
+const testimonials = [
+  {
+    name: 'Alejandro Gutiérrez',
+    role: 'Ingeniero de Sistemas',
+    text: 'Desde que contraté el plan de Gestión VIP, la estabilidad de mi red mejoró drásticamente. El equipo de OptimaIT resolvió en minutos lo que mi proveedor anterior tardaba días. El monitoreo 24/7 me da una tranquilidad enorme.',
+    initials: 'AG'
+  },
+  {
+    name: 'Sofía Ramírez',
+    role: 'Diseñadora Freelance',
+    text: 'Necesitaba alguien que me configurara un sistema de respaldos automatizados sin complicaciones. El soporte integral de OptimaIT fue exactamente eso: profesional, remoto y sin tecnicismos. Altamente recomendable.',
+    initials: 'SR'
+  },
+  {
+    name: 'Carlos Mendoza',
+    role: 'Consultor de Negocios',
+    text: 'Delegué la auditoría de seguridad y la optimización de mis equipos a OptimaIT. Los informes detallados y la velocidad de respuesta superaron mis expectativas. Un aliado estratégico para cualquier profesional.',
+    initials: 'CM'
+  }
+];
+---
+
+<section class="section" id="testimonios" style="background: var(--gradient-section);">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge">Testimonios</span>
+      <h2>Confianza Que Conecta</h2>
+      <p>Lo que dicen los profesionales que confían en nuestros servicios.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      {testimonials.map((t) => (
+        <div class="testimonial-card card">
+          <div class="testimonial-quote">
+            <!-- Lucide: Quote -->
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z"/>
+              <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
+            </svg>
+          </div>
+          <p class="testimonial-text">"{t.text}"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">{t.initials}</div>
+            <div>
+              <div class="testimonial-name">{t.name}</div>
+              <div class="testimonial-role">{t.role}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-quote {
+    color: var(--color-primary);
+    margin-bottom: 20px;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    color: var(--color-accent);
+    line-height: 1.7;
+    font-style: italic;
+    flex: 1;
+    margin-bottom: 24px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-text);
+    flex-shrink: 0;
+  }
+
+  .testimonial-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text);
+  }
+
+  .testimonial-role {
+    font-size: 0.8rem;
+    color: var(--color-primary-light);
+  }
+
+  @media (max-width: 900px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+</style>

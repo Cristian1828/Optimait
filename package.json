@@ -1,0 +1,14 @@
+{
+  "name": "dantro-tech-solutions",
+  "version": "1.0.0",
+  "description": "Dantro Tech Solutions — Consultoría Tecnológica y Soporte TI Gestionado",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.5.0"
+  }
+}

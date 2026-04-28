@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  noIndex?: boolean;
+}
+
+const { title, description = 'OptimaIT — Consultoría Tecnológica y Soporte TI Gestionado. Optimización de sistemas, mantenimiento remoto y desarrollo de software a medida. Respaldado por Dantro Tech Solutions.', noIndex = false } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, 'https://optimait.site');
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:site_name" content="OptimaIT" />
+  <meta property="og:locale" content="es_ES" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <title>{title}</title>
+</head>
+<body>
+  <slot />
+</body>
+</html>

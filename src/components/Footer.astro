@@ -1,0 +1,174 @@
+---
+const year = new Date().getFullYear();
+const waLink = 'https://wa.me/51921445800?text=Hola%2C%20necesito%20asesor%C3%ADa%20t%C3%A9cnica%20de%20OptimaIT.';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <!-- Lucide: Shield Check -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary-light);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span class="logo-text">Optima<span class="logo-accent">IT</span></span>
+        </a>
+        <p class="footer-desc">Consultoría tecnológica, desarrollo de software a medida y servicios de mantenimiento TI gestionado. Todos los servicios son de entrega digital y asistencia remota.</p>
+        <p class="footer-powered">Respaldado por Dantro Tech Solutions</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <nav>
+          <a href="#inicio">Inicio</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#portafolio">Portafolio</a>
+          <a href="#testimonios">Testimonios</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <nav>
+          <a href="#servicios">Optimización Estándar</a>
+          <a href="#servicios">Mantenimiento Avanzado</a>
+          <a href="#servicios">Soporte Integral</a>
+          <a href="#servicios">Gestión VIP Corporativa</a>
+        </nav>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <nav>
+          <a href="/terms/">Términos de Servicio</a>
+          <a href="/privacy/">Política de Privacidad</a>
+        </nav>
+        <div class="footer-payments">
+          <span class="payment-badge">Visa</span>
+          <span class="payment-badge">MasterCard</span>
+          <span class="payment-badge">PayPal</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {year} OptimaIT — Dantro Tech Solutions. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #060E1A;
+    border-top: 1px solid var(--color-border);
+    padding: 60px 0 0;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text);
+    margin-bottom: 16px;
+  }
+
+  .footer-logo .logo-accent {
+    color: var(--color-primary-light);
+  }
+
+  .footer-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .footer-powered {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+    font-style: italic;
+  }
+
+  .footer-col h4 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 16px;
+  }
+
+  .footer-col nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-col nav a {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .footer-col nav a:hover {
+    color: var(--color-text);
+  }
+
+  .footer-payments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .payment-badge {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,188 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Política de Privacidad — OptimaIT"
+  description="Política de privacidad y protección de datos de OptimaIT. Conozca cómo recopilamos, usamos y protegemos su información personal."
+>
+  <Header />
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-header">
+        <a href="/" class="legal-back">&larr; Volver al Inicio</a>
+        <h1>Política de Privacidad</h1>
+        <p class="legal-updated">Última actualización: Abril 2026</p>
+      </div>
+
+      <div class="legal-content">
+        <section>
+          <h2>1. Información que Recopilamos</h2>
+          <p>OptimaIT, respaldado por Dantro Tech Solutions (en adelante, "la Empresa"), recopila la siguiente información cuando usted utiliza nuestros servicios:</p>
+          <ul>
+            <li><strong>Datos de identificación:</strong> Nombre, correo electrónico, nombre de empresa</li>
+            <li><strong>Datos de pago:</strong> Procesados de forma segura a través de pasarelas certificadas (PCI DSS). No almacenamos datos de tarjetas.</li>
+            <li><strong>Datos técnicos:</strong> Información de diagnóstico del sistema durante las sesiones de soporte remoto, con consentimiento explícito del usuario.</li>
+            <li><strong>Datos de uso:</strong> Páginas visitadas, interacciones con el sitio web e información del navegador.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>2. Uso de la Información</h2>
+          <p>Utilizamos su información para:</p>
+          <ul>
+            <li>Prestar y gestionar los servicios contratados</li>
+            <li>Procesar pagos y facturación recurrente</li>
+            <li>Enviar comunicaciones relacionadas con el servicio</li>
+            <li>Mejorar la calidad de nuestros servicios</li>
+            <li>Cumplir con obligaciones legales y regulatorias</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. Protección de Datos</h2>
+          <p>Implementamos medidas de seguridad técnicas y organizativas para proteger su información, incluyendo:</p>
+          <ul>
+            <li>Cifrado de datos en tránsito (TLS/SSL) y en reposo</li>
+            <li>Control de acceso basado en roles</li>
+            <li>Auditorías de seguridad periódicas</li>
+            <li>Capacitación del personal en protección de datos</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Compartición de Datos</h2>
+          <p><strong>No vendemos, alquilamos ni compartimos</strong> su información personal con terceros para fines de marketing. Solo compartimos datos con:</p>
+          <ul>
+            <li>Pasarelas de pago certificadas para procesar transacciones</li>
+            <li>Proveedores de infraestructura cloud para la prestación del servicio</li>
+            <li>Autoridades legales cuando sea requerido por ley</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>5. Sus Derechos</h2>
+          <p>Usted tiene derecho a:</p>
+          <ul>
+            <li>Acceder a sus datos personales almacenados</li>
+            <li>Solicitar la corrección de datos inexactos</li>
+            <li>Solicitar la eliminación de sus datos</li>
+            <li>Retirar su consentimiento en cualquier momento</li>
+            <li>Presentar una reclamación ante la autoridad competente</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>6. Cookies</h2>
+          <p>Utilizamos cookies estrictamente necesarias para el funcionamiento del sitio web. No utilizamos cookies de seguimiento publicitario de terceros.</p>
+        </section>
+
+        <section>
+          <h2>7. Retención de Datos</h2>
+          <p>Conservamos su información durante el período necesario para cumplir con los fines descritos en esta política y durante un mínimo de 5 años para cumplir con obligaciones contables y legales.</p>
+        </section>
+
+        <section>
+          <h2>8. Contacto</h2>
+          <p>Para ejercer sus derechos o realizar consultas sobre privacidad, contáctenos por <a href="https://wa.me/51921445800?text=Hola%2C%20tengo%20una%20consulta%20sobre%20privacidad%20de%20OptimaIT." target="_blank" rel="noopener">WhatsApp</a>.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    min-height: 100vh;
+  }
+
+  .legal-header {
+    margin-bottom: 48px;
+  }
+
+  .legal-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--color-primary-light);
+    margin-bottom: 20px;
+    transition: color 0.2s ease;
+  }
+
+  .legal-back:hover {
+    color: var(--color-text);
+  }
+
+  .legal-header h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin-bottom: 8px;
+  }
+
+  .legal-updated {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .legal-content {
+    max-width: 800px;
+  }
+
+  .legal-content section {
+    margin-bottom: 36px;
+  }
+
+  .legal-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: var(--color-accent);
+  }
+
+  .legal-content p {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .legal-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 12px;
+  }
+
+  .legal-content ul li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+
+  .legal-content ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+  }
+
+  .legal-content strong {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .legal-content a {
+    color: var(--color-primary-light);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .legal-content a:hover {
+    color: var(--color-text);
+  }
+</style>
