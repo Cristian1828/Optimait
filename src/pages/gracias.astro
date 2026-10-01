@@ -1,12 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const WA_NUMBER = '51914326729';
+const API_URL = import.meta.env.PUBLIC_API_URL || 'https://api.optimait.site';
+const WA_NUMBER = '51921445800';
 const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi correo. Mi correo es: ';
 ---
 
 <Layout
-  title="¡Compra Confirmada! — OptimaIT"
+  title="¡Compra Confirmada!"
   description="Tu compra fue procesada con éxito. En unos minutos recibirás la información de tu servicio."
   noIndex={true}
 >
@@ -19,15 +20,14 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
 
     <div class="gracias-wrapper">
 
-      <!-- Logo OptimaIT -->
+      <!-- Icono genérico, sin identidad de marca -->
       <div class="gracias-logo-row">
-        <a href="/" class="gracias-logo-link">
+        <span class="gracias-logo-link">
           <svg class="gracias-logo-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <path d="m9 12 2 2 4-4"/>
           </svg>
-          <span class="gracias-logo-text">Optima<span class="gracias-logo-accent">IT</span></span>
-        </a>
+        </span>
       </div>
 
       <!-- Grid 2 columnas -->
@@ -48,13 +48,13 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
 
           <!-- Encabezado -->
           <div class="gracias-heading">
-            <span class="gracias-badge">Pago confirmado ✓</span>
-            <h1>¡Muchas gracias<br/>por su compra!</h1>
-            <p>En un máximo de <strong>10 minutos</strong> recibirá la información de su servicio al correo electrónico registrado durante la compra.</p>
+            <span class="gracias-badge" id="statusBadge">Pago confirmado ✓</span>
+            <h1 id="headingTitle">¡Muchas gracias<br/>por su compra!</h1>
+            <p id="headingSubtitle">En un máximo de <strong>10 minutos</strong> recibirá la información de su servicio al correo electrónico registrado durante la compra.</p>
           </div>
 
-          <!-- Pasos informativos -->
-          <div class="gracias-steps">
+          <!-- Pasos informativos (solo cuando no hay orden que rastrear) -->
+          <div class="gracias-steps" id="staticSteps">
             <div class="step-item">
               <div class="step-number">1</div>
               <div class="step-text">
@@ -79,10 +79,68 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
           </div>
         </div>
 
-        <!-- COLUMNA DERECHA — Tarjeta WhatsApp -->
+        <!-- COLUMNA DERECHA -->
         <div class="gracias-right">
-          <div class="wa-card">
 
+          <!-- Panel: esperando confirmación del pago (polling) -->
+          <div class="wa-card" id="pendingPanel" hidden>
+            <div class="wa-card-header">
+              <div class="wa-icon-box spinner-box">
+                <span class="spinner"></span>
+              </div>
+              <div>
+                <p class="wa-card-title">Confirmando tu pago…</p>
+                <p class="wa-card-subtitle">Esto suele tardar solo unos segundos. No cierres ni recargues esta página.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel: boleta + credenciales -->
+          <div class="wa-card receipt-card" id="receiptPanel" hidden>
+            <div class="wa-card-header">
+              <div class="wa-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                  <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+                </svg>
+              </div>
+              <div>
+                <p class="wa-card-title">Tu boleta</p>
+                <p class="wa-card-subtitle" id="receiptPlanLine">—</p>
+              </div>
+            </div>
+
+            <div class="receipt-row">
+              <span>Referencia</span>
+              <code id="receiptRef">—</code>
+            </div>
+            <div class="receipt-row">
+              <span>Fecha</span>
+              <span id="receiptDate">—</span>
+            </div>
+            <div class="receipt-row receipt-row--total">
+              <span>Total</span>
+              <span id="receiptAmount">—</span>
+            </div>
+
+            <div class="credentials-box">
+              <p class="credentials-label">Tus accesos</p>
+              <div class="credential-field">
+                <span class="credential-key">Usuario</span>
+                <code id="credUsername">—</code>
+                <button type="button" class="copy-btn" data-copy-target="credUsername">Copiar</button>
+              </div>
+              <div class="credential-field">
+                <span class="credential-key">Contraseña</span>
+                <code id="credPassword">—</code>
+                <button type="button" class="copy-btn" data-copy-target="credPassword">Copiar</button>
+              </div>
+            </div>
+
+            <p class="receipt-footnote">También te enviamos esta información a tu correo electrónico.</p>
+          </div>
+
+          <!-- Panel: fallback WhatsApp (sin ref, error, o demora mucha) -->
+          <div class="wa-card" id="fallbackPanel" hidden>
             <div class="wa-card-header">
               <div class="wa-icon-box">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -95,7 +153,6 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
               </div>
             </div>
 
-            <!-- Input email -->
             <div class="wa-form-group">
               <label for="emailInput">Su correo electrónico</label>
               <input
@@ -106,7 +163,6 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
               />
             </div>
 
-            <!-- Botón WhatsApp -->
             <a
               id="waBtn"
               href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(BASE_MSG)}`}
@@ -123,16 +179,13 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
               </svg>
             </a>
 
-            <!-- Info adicional -->
             <div class="wa-card-footer">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
               </svg>
               <p>Este canal es exclusivo para clientes que ya realizaron su compra.</p>
             </div>
-
           </div>
-
 
         </div>
       </div>
@@ -141,18 +194,116 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
   </main>
 </Layout>
 
-<script define:vars={{ WA_NUMBER, BASE_MSG }}>
+<script define:vars={{ WA_NUMBER, BASE_MSG, API_URL }}>
   const input = document.getElementById('emailInput');
-  const btn   = document.getElementById('waBtn');
+  const btn = document.getElementById('waBtn');
 
-  function updateLink() {
+  function updateWaLink() {
+    if (!input || !btn) return;
     const email = input.value.trim();
     const msg = BASE_MSG + (email || '');
     btn.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
+  if (input) {
+    input.addEventListener('input', updateWaLink);
+    updateWaLink();
+  }
 
-  input.addEventListener('input', updateLink);
-  updateLink();
+  const pendingPanel = document.getElementById('pendingPanel');
+  const receiptPanel = document.getElementById('receiptPanel');
+  const fallbackPanel = document.getElementById('fallbackPanel');
+  const staticSteps = document.getElementById('staticSteps');
+  const statusBadge = document.getElementById('statusBadge');
+  const headingTitle = document.getElementById('headingTitle');
+  const headingSubtitle = document.getElementById('headingSubtitle');
+
+  const ref = new URLSearchParams(window.location.search).get('ref');
+
+  function showPanel(panel) {
+    [pendingPanel, receiptPanel, fallbackPanel].forEach((p) => {
+      if (p) p.hidden = p !== panel;
+    });
+  }
+
+  function formatMoney(amount, currency) {
+    if (amount === null || amount === undefined) return '—';
+    return `${Number(amount).toFixed(2)} ${currency || 'USD'}`;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    try {
+      return new Date(iso).toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' });
+    } catch {
+      return iso;
+    }
+  }
+
+  function renderReceipt(data) {
+    document.getElementById('receiptPlanLine').textContent = data.full_name
+      ? `A nombre de ${data.full_name}`
+      : 'Compra confirmada';
+    document.getElementById('receiptRef').textContent = ref.slice(0, 8) + '…';
+    document.getElementById('receiptDate').textContent = formatDate(data.created_at);
+    document.getElementById('receiptAmount').textContent = formatMoney(data.amount, data.currency);
+    document.getElementById('credUsername').textContent = data.username || '—';
+    document.getElementById('credPassword').textContent = data.password || '—';
+
+    statusBadge.textContent = 'Pago confirmado ✓';
+    headingTitle.innerHTML = '¡Muchas gracias<br/>por su compra!';
+    headingSubtitle.innerHTML = 'Ya generamos tus accesos. Los verás a la derecha, y también los enviamos a tu correo electrónico.';
+    if (staticSteps) staticSteps.hidden = true;
+    showPanel(receiptPanel);
+  }
+
+  document.querySelectorAll('.copy-btn').forEach((btnEl) => {
+    btnEl.addEventListener('click', () => {
+      const targetId = btnEl.getAttribute('data-copy-target');
+      const text = document.getElementById(targetId)?.textContent || '';
+      navigator.clipboard?.writeText(text).then(() => {
+        const original = btnEl.textContent;
+        btnEl.textContent = '¡Copiado!';
+        setTimeout(() => { btnEl.textContent = original; }, 1500);
+      });
+    });
+  });
+
+  async function pollReceipt(attempt = 0) {
+    const MAX_ATTEMPTS = 40; // ~2 minutos a 3s de intervalo
+    try {
+      const resp = await fetch(`${API_URL}/api/v1/checkout/receipt/${ref}`);
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data.status === 'COMPLETED') {
+          renderReceipt(data);
+          return;
+        }
+      }
+    } catch {
+      // red intermitente: seguimos reintentando hasta MAX_ATTEMPTS
+    }
+
+    if (attempt >= MAX_ATTEMPTS) {
+      statusBadge.textContent = 'Pago recibido ✓';
+      headingTitle.innerHTML = 'Tu pago está<br/>en confirmación';
+      headingSubtitle.innerHTML = 'Está tomando más tiempo de lo normal. Te avisaremos por correo y WhatsApp apenas esté listo — o escríbenos para acelerarlo.';
+      showPanel(fallbackPanel);
+      return;
+    }
+
+    setTimeout(() => pollReceipt(attempt + 1), 3000);
+  }
+
+  if (ref) {
+    if (staticSteps) staticSteps.hidden = true;
+    statusBadge.textContent = 'Verificando pago…';
+    headingTitle.innerHTML = 'Estamos confirmando<br/>tu pago';
+    headingSubtitle.innerHTML = 'Dejaremos esta página lista con tu boleta y tus accesos apenas el pago se confirme.';
+    showPanel(pendingPanel);
+    pollReceipt();
+  } else {
+    showPanel(fallbackPanel);
+  }
 </script>
 
 <style>
@@ -222,23 +373,9 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: var(--color-text);
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-  }
-
-  .gracias-logo-link:hover {
-    opacity: 0.8;
   }
 
   .gracias-logo-svg {
-    color: var(--color-primary-light);
-  }
-
-  .gracias-logo-accent {
     color: var(--color-primary-light);
   }
 
@@ -384,7 +521,7 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     line-height: 1.5;
   }
 
-  /* ── Right Column — WhatsApp Card ──────────── */
+  /* ── Right Column ──────────────────────────── */
   .gracias-right {
     display: flex;
     flex-direction: column;
@@ -421,6 +558,19 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     color: var(--color-primary-light);
   }
 
+  .spinner-box {
+    background: rgba(74, 127, 167, 0.12);
+  }
+
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(94, 159, 204, 0.25);
+    border-top-color: var(--color-primary-light);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
   .wa-card-title {
     font-family: var(--font-heading);
     font-weight: 600;
@@ -433,6 +583,96 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     font-size: 0.82rem;
     color: var(--color-text-muted);
     line-height: 1.6;
+  }
+
+  /* Receipt */
+  .receipt-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .receipt-row code {
+    font-family: 'Courier New', monospace;
+    color: var(--color-text);
+  }
+
+  .receipt-row--total {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text);
+    border-bottom: none;
+    padding-top: 4px;
+  }
+
+  .credentials-box {
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .credentials-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary-light);
+  }
+
+  .credential-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .credential-key {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    width: 90px;
+    flex-shrink: 0;
+  }
+
+  .credential-field code {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background: var(--color-bg-surface);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary-light);
+    background: transparent;
+    border: 1px solid var(--color-border-hover);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  .copy-btn:hover {
+    background: rgba(74, 127, 167, 0.12);
+  }
+
+  .receipt-footnote {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    text-align: center;
   }
 
   /* Form */
@@ -524,22 +764,6 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     color: var(--color-text-muted);
   }
 
-  /* Back link */
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--color-text-muted);
-    transition: color 0.2s ease;
-    align-self: center;
-  }
-
-  .back-link:hover {
-    color: var(--color-text);
-  }
-
   /* ── Animations ────────────────────────────── */
   @keyframes draw-check {
     to { stroke-dashoffset: 0; }
@@ -553,6 +777,10 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
   @keyframes ring-pulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(74, 127, 167, 0.3); }
     50% { box-shadow: 0 0 0 14px rgba(74, 127, 167, 0); }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
   }
 
   /* ── Responsive ────────────────────────────── */
