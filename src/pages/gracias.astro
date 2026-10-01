@@ -82,19 +82,6 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
         <!-- COLUMNA DERECHA -->
         <div class="gracias-right">
 
-          <!-- Panel: esperando confirmación del pago (polling) -->
-          <div class="wa-card" id="pendingPanel" hidden>
-            <div class="wa-card-header">
-              <div class="wa-icon-box spinner-box">
-                <span class="spinner"></span>
-              </div>
-              <div>
-                <p class="wa-card-title">Confirmando tu pago…</p>
-                <p class="wa-card-subtitle">Esto suele tardar solo unos segundos. No cierres ni recargues esta página.</p>
-              </div>
-            </div>
-          </div>
-
           <!-- Panel: boleta + credenciales -->
           <div class="wa-card receipt-card" id="receiptPanel" hidden>
             <div class="wa-card-header">
@@ -149,7 +136,7 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
               </div>
               <div>
                 <p class="wa-card-title">Solicite sus accesos por WhatsApp</p>
-                <p class="wa-card-subtitle">Ingrese el correo con el que realizó la compra y le enviaremos la información de inmediato.</p>
+                <p class="wa-card-subtitle">Ingrese el correo con el que realizó la compra y le responderemos lo antes posible. Por diferencia de horarios puede haber una pequeña demora — gracias por su paciencia, y disculpe cualquier inconveniente.</p>
               </div>
             </div>
 
@@ -191,6 +178,17 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
       </div>
 
     </div>
+
+    <!-- Overlay de carga — cubre todo el contenido mientras se confirma el
+         pago, para no mostrar una boleta a medio llenar con guiones. Se
+         oculta recién cuando se sabe el resultado real (pagado o demorado). -->
+    <div class="loading-overlay" id="loadingOverlay" hidden>
+      <div class="loading-card">
+        <span class="spinner spinner-lg"></span>
+        <p class="loading-title">Confirmando tu pago…</p>
+        <p class="loading-sub">Esto suele tardar solo unos segundos. No cierres ni recargues esta página.</p>
+      </div>
+    </div>
   </main>
 </Layout>
 
@@ -209,7 +207,7 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     updateWaLink();
   }
 
-  const pendingPanel = document.getElementById('pendingPanel');
+  const loadingOverlay = document.getElementById('loadingOverlay');
   const receiptPanel = document.getElementById('receiptPanel');
   const fallbackPanel = document.getElementById('fallbackPanel');
   const staticSteps = document.getElementById('staticSteps');
@@ -220,7 +218,7 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
   const ref = new URLSearchParams(window.location.search).get('ref');
 
   function showPanel(panel) {
-    [pendingPanel, receiptPanel, fallbackPanel].forEach((p) => {
+    [receiptPanel, fallbackPanel].forEach((p) => {
       if (p) p.hidden = p !== panel;
     });
   }
@@ -254,6 +252,7 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     headingSubtitle.innerHTML = 'Ya generamos tus accesos. Los verás a la derecha, y también los enviamos a tu correo electrónico.';
     if (staticSteps) staticSteps.hidden = true;
     showPanel(receiptPanel);
+    if (loadingOverlay) loadingOverlay.hidden = true;
   }
 
   document.querySelectorAll('.copy-btn').forEach((btnEl) => {
@@ -286,8 +285,9 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     if (attempt >= MAX_ATTEMPTS) {
       statusBadge.textContent = 'Pago recibido ✓';
       headingTitle.innerHTML = 'Tu pago está<br/>en confirmación';
-      headingSubtitle.innerHTML = 'Está tomando más tiempo de lo normal. Te avisaremos por correo y WhatsApp apenas esté listo — o escríbenos para acelerarlo.';
+      headingSubtitle.innerHTML = 'Está tomando más tiempo de lo normal. Escríbenos por WhatsApp y te atendemos lo antes posible — por diferencia de horarios puede haber una pequeña demora, gracias por tu paciencia.';
       showPanel(fallbackPanel);
+      if (loadingOverlay) loadingOverlay.hidden = true;
       return;
     }
 
@@ -295,11 +295,10 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
   }
 
   if (ref) {
+    // Todo el contenido queda cubierto por el overlay con blur hasta saber
+    // el resultado real — nunca se muestra una boleta a medio llenar.
     if (staticSteps) staticSteps.hidden = true;
-    statusBadge.textContent = 'Verificando pago…';
-    headingTitle.innerHTML = 'Estamos confirmando<br/>tu pago';
-    headingSubtitle.innerHTML = 'Dejaremos esta página lista con tu boleta y tus accesos apenas el pago se confirme.';
-    showPanel(pendingPanel);
+    if (loadingOverlay) loadingOverlay.hidden = false;
     pollReceipt();
   } else {
     showPanel(fallbackPanel);
@@ -569,6 +568,56 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
     border-top-color: var(--color-primary-light);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
+  }
+
+  /* ── Overlay de carga (blur sobre todo el fondo) ──────────── */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(5, 10, 18, 0.6);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+  }
+
+  .loading-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 360px;
+    padding: 40px 32px;
+    text-align: center;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .spinner-lg {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(94, 159, 204, 0.25);
+    border-top-color: var(--color-primary-light);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .loading-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-text);
+  }
+
+  .loading-sub {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
   }
 
   .wa-card-title {
