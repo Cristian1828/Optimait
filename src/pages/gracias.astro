@@ -306,6 +306,15 @@ const BASE_MSG = 'Hola, acabo de realizar el pago pero no me llegó nada a mi co
 </script>
 
 <style>
+  /* El atributo [hidden] tiene la misma especificidad que cualquier clase
+     con `display` explícito (.wa-card, .gracias-steps, .loading-overlay) y
+     pierde la cascada contra ellas — sin esto, un elemento "oculto" por JS
+     (el.hidden = true) seguía renderizándose igual. Regla genérica para
+     cubrir cualquier elemento de la página, no solo los de hoy. */
+  [hidden] {
+    display: none !important;
+  }
+
   /* ── Page Layout ─────────────────────────── */
   .gracias-page {
     min-height: 100vh;
